@@ -1,0 +1,47 @@
+<div [hidden]="submitted">
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+        <div class="form-group">
+            <label>Name</label>
+            <p>                
+                <input class="form-control ng-valid ng-pristine ng-untouched" 
+                type="text" id="name" #name="ngModel" [(ngModel)]="model.name" 
+                name="name" required>
+            </p>
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is Required
+            </div>
+            <label>Alter Ago</label>
+            <p>
+                <input class="form-control" type="text" name="alterago" 
+                id="alterago" required [(ngModel)]="model.alterEgo" #alterago="ngModel">
+            </p>
+            <div [hidden]="alterago.valid || alterago.pristine">Alter Ago Required</div>
+            <label>Power</label>
+            <p><select id="power" required
+                [(ngModel)]="model.power" name="power">
+                    <option *ngFor="let pwr of powers" [value]="pwr">{{pwr}}</option>
+                </select>
+            </p>
+            <p><button class="btn btn-default" name="add" (click)="newHero();heroForm.reset()">New Hero</button></p>
+            <p><button type="submit" name="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button></p>
+        </div>
+    </form>
+</div>
+<div [hidden]="!submitted">
+    <div class="row">
+        <label>You submitted the details</label>
+        <div class="col-md-4">
+            <p>Name</p>
+            <p>{{model.name}}</p>
+        </div>
+        <div class="col-md-4">
+            <p>Alter Ago</p>
+            <p>{{model.alterEgo}}</p>
+        </div>
+        <div class="col-md-4">
+            <p>Power</p>
+            <p>{{model.power}}</p>
+        </div>
+        <button class="btn btn-default" (click)="submitted=false">Edit</button>
+    </div>
+</div>
